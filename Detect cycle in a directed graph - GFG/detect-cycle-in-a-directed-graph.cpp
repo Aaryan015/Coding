@@ -4,6 +4,7 @@ using namespace std;
 
 // } Driver Code Ends
 class Solution {
+  /* //DFS solution:
   private:
     bool dfscheck(int node, vector<int> adj[], int vis[], int pathvis[]){
         vis[node] = 1;
@@ -33,7 +34,39 @@ class Solution {
                 if(dfscheck(i, adj, vis, pathvis) == true) return true;
             }
         }
-        return false;
+        return false; */
+    
+    // Kahn's algo (BFS):
+    public:
+	    //Function to return list containing vertices in Topological order. 
+	    bool isCyclic(int V, vector<int> adj[]) {
+	        int indegree[V] = {0};
+	        for(int i=0; i<V;i++){
+	            for(auto it : adj[i]){
+	                indegree[it]++;
+	            }
+	        }
+	    
+	    queue<int> q;
+	    for(int i=0;i<V;i++){
+	        if(indegree[i]==0){
+	            q.push(i);
+	        }
+	    }
+	   int cnt = 0;
+	    while(!q.empty()){
+	        int node = q.front();
+	        q.pop();
+	        cnt++;
+	        
+	        for(auto it : adj[node]){
+	            indegree[it]--;
+	            if(indegree[it]==0) q.push(it);
+	        }
+	    }
+	    if(cnt == V) return false;
+	    return true;
+        
     }
 };
 
