@@ -26,6 +26,7 @@ public:
                 for(auto it: usedOnlevel){
                     st.erase(it);
                 }
+                usedOnlevel.clear();
             }
             
             string word = vec.back();
